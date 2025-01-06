@@ -334,8 +334,9 @@ parse_target(
     }
     if(it == first)
     {
-        // cannot be empty
-        BOOST_BEAST_ASSIGN_EC(ec, error::bad_target);
+        // Secretrarium nng workaround for empty path.
+        result = "/"; // RFC 6455 - 3.  WebSocket URIs - "/" if the path component is empty - https://www.rfc-editor.org/rfc/rfc6455
+        ++it;
         return;
     }
     result = make_string(first, it++);
